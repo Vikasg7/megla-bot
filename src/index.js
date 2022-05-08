@@ -51,7 +51,7 @@ const list = []
 function listBot({username}, subcmd, n = 1) {
    if (!subcmd) {
       return list.length 
-               ? [`@${username}` + "👿" + list.join("👿")] 
+               ? [`@${username} ` + list.join(", ")] 
                : [`@${username} list is empty. Type < !list me > to add yourself to the list`]
    } else
    if (subcmd == "me") {
@@ -70,11 +70,11 @@ function listBot({username}, subcmd, n = 1) {
    }
    if (subcmd == "help") { 
       return [
-         `@${username}` +
-         "👿 !list        - Shows the list" +
-         "👿 !list me     - Adds you in the list" +
-         "👿 !list next n - Pops first n names from the list and shows them (Admin only)" +
-         "👿 !list next   - Pops first name from the list and shows it (Admin only)" + 
+         `@${username} ` +
+         "👿 !list        - Shows the list " +
+         "👿 !list me     - Adds you in the list " +
+         "👿 !list next   - Pops first name from the list and shows it (Admin only) " + 
+         "👿 !list next n - Pops first n names from the list and shows them (Admin only) " +
          "👿 !list help   - Shows help text"
       ]
    } else {
@@ -83,10 +83,11 @@ function listBot({username}, subcmd, n = 1) {
 }
 
 // !weather location
-async function weatherBot(...args) {
+async function weatherBot({username}, ...args) {
    const location = encodeURIComponent(args.join(" "))
    const resp = await fetch(`https://wttr.in/${location}?format=4`)
-   return resp.text()
+   const text = await resp.text()
+   return `@${username} ${text}`
 }
 
 function replies([channel, tags, message, self]) {
@@ -97,7 +98,7 @@ function replies([channel, tags, message, self]) {
    const command = cmd.toLowerCase()
    
    return command == "list"    ? listBot(tags, ...args) :
-          command == "weather" ? weatherBot(...args)
+          command == "weather" ? weatherBot(tags, ...args)
                                : []
 }
 
