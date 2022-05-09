@@ -3,13 +3,12 @@ const tmi = require("tmi.js"),
       Op  = require("rxjs/operators"),
       cfg = require("../config.json"),
       { log } = require("console"),
-      Utils = require("./utils")
-
-const isAdmin = (user) => user == cfg.chnl
+      Utils = require("./utils"),
+      { listBot, weatherBot } = require("./bots")
 
 function twirc(cfg) {
    const client = new tmi.Client({
-      // options: { debug: true },
+      options: { debug: true },
       connection: { secure: true },
       identity: {
          username: cfg.user,
@@ -38,56 +37,6 @@ function twirc(cfg) {
       reply,
       disconnect
    }
-}
-
-/*
-   !list
-   !list me
-   !list next
-   !list next n
-   !list help
-*/
-const list = []
-function listBot({username}, subcmd, n = 1) {
-   if (!subcmd) {
-      return list.length 
-               ? [`@${username} ` + list.join(", ")] 
-               : [`@${username} list is empty. Type < !list me > to add yourself to the list`]
-   } else
-   if (subcmd == "me") {
-      if (list.includes(username)) {
-         return [`@${username} You are already in the list.`]
-      }
-      list.push(username)
-      return [`Added @${username} to the list.`]
-   } else
-   if (subcmd == "next" && isAdmin(username)) { 
-      if (!list.length) return [];
-      n = n > list.length ? list.length : n // making sure n !> list.length 
-      const nextup = Utils.repeatedly(() => list.shift(), n)
-      const tags = "@" + nextup.join(" @")
-      return [`${tags} You are up next. Ready up! and join the team.`]
-   }
-   if (subcmd == "help") { 
-      return [
-         `@${username} ` +
-         "👿 !list        - Shows the list " +
-         "👿 !list me     - Adds you in the list " +
-         "👿 !list next   - Pops first name from the list and shows it (Admin only) " + 
-         "👿 !list next n - Pops first n names from the list and shows them (Admin only) " +
-         "👿 !list help   - Shows help text"
-      ]
-   } else {
-      return []
-   }
-}
-
-// !weather location
-async function weatherBot({username}, ...args) {
-   const location = encodeURIComponent(args.join(" "))
-   const resp = await fetch(`https://wttr.in/${location}?format=4`)
-   const text = await resp.text()
-   return `@${username} ${text}`
 }
 
 function replies([channel, tags, message, self]) {

@@ -14,4 +14,4 @@ $ npm start
 ```  
 
 ## Configuration  
-Make sure to add `config.json` based on `example-config.json` to the `megla-bot` folder before you run.  
+Make sure to add `config.json` based on `example-config.json` to the `megla-bot` folder before you run the bot.  

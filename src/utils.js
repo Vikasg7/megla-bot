@@ -9,13 +9,22 @@ const bindRight = (a , ...as) =>
 const repeatedly = (f, n) => {
    const result = []
    while (n != 0) {
-      result.push(f())
+      const r = f()
+      if (r) result.push(r);
       n--
    }
    return result
 }
 
+const remove = (as, a) => {
+   const idx = as.indexOf(a)
+   if (idx != -1) {
+      return as.splice(idx, 1)[0]
+   }
+}
+
 module.exports = {
    bindRight,
-   repeatedly
+   repeatedly,
+   remove
 }
