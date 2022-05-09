@@ -8,7 +8,7 @@ const tmi = require("tmi.js"),
 
 function twirc(cfg) {
    const client = new tmi.Client({
-      options: { debug: true },
+      // options: { debug: true },
       connection: { secure: true },
       identity: {
          username: cfg.user,
