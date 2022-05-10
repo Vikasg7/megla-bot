@@ -7,9 +7,11 @@ const isAdmin = (user) => user == cfg.chnl
 const list = ["Symone", "Pump"]
 function listBot({ username }, subcmd, ...args) {
    if (!subcmd) {
-      return list.length
-         ? ["List - [ " + list.join(", ") + " ]"]
-         : [`@${username} List is empty right now. Type [ !list me ] to add yourself to the list.`]
+      return (
+         list.length
+            ? ["List - [ " + list.join(", ") + " ]"]
+            : [`@${username} List is empty right now. Type [ !list me ] to add yourself to the list.`]
+      )
    }
    if (subcmd == "me") {
       if (list.includes(username)) {
@@ -29,12 +31,14 @@ function listBot({ username }, subcmd, ...args) {
    if (subcmd == "off" && isAdmin(username)) {
       const takenOff =
          args
-            .map(arg => arg.replace("@", ""))
-            .map(Utils.remove(list, ?))
-            .filter(x => x)
-      return takenOff.length
-         ? [`@${takenOff.join(" @")} taken off of the list.`]
-         : [`@${username} Nobody was taken off from the list.`]
+         .map(arg => arg.replace("@", ""))
+         .map(Utils.remove(list, ?))
+         .filter(x => x)
+      return ( 
+         takenOff.length
+            ? [`@${takenOff.join(" @")} taken off of the list.`]
+            : [`@${username} Nobody was taken off from the list.`]
+      )
    }
    if (subcmd == "off") {
       if (!list.includes(username)) {
