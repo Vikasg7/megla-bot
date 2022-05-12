@@ -4,7 +4,7 @@ const cfg = require("../../config.json"),
 
 const isAdmin = (user) => user == cfg.chnl
 
-const list = ["Symone", "Pump"]
+const list = []
 function listBot({ username }, subcmd, ...args) {
    if (!subcmd) {
       return (
