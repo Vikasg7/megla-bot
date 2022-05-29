@@ -15,3 +15,6 @@ $ npm start
 
 ## Configuration  
 Make sure to add `config.json` based on `example-config.json` to the `megla-bot` folder before you run the bot.  
+
+## Add new Bot
+Add your new bot function as a key value pair in the `bots\index.js` having the key as command name and value as a function that will receive the tags and args as arguments just like weather bot and list bot does.

@@ -1,4 +1,4 @@
 module.exports = {
-   listBot: require("./list"),
-   weatherBot: require("./weather")
+   list: require("./list"),
+   weather: require("./weather")
 }
