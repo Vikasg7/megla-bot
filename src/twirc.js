@@ -32,9 +32,8 @@ function twirc(cfg) {
 
    const reply = ([channel, tags, message, self]) => {
       if (self || !message.startsWith('!')) return [];
-      const [cmd, ...args] = message.slice(1).split(' ')
-      const command = cmd.toLowerCase()
-      const bot = bots[command]
+      const [cmd, ...args] = message.toLowerCase().slice(1).split(' ')
+      const bot = bots[cmd]
       if (bot === undefined) return [];
       return bot(tags, ...args)
    }

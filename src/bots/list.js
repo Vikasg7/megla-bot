@@ -26,7 +26,7 @@ function listBot({ username }, subcmd, ...args) {
       n = n > list.length ? list.length : n // making sure n !> list.length 
       const nextup = Utils.repeatedly(list.shift(?), n)
       const tags = "@" + nextup.join(" @")
-      return [`${tags} You are up next. Ready up! and join the team.`]
+      return [`${tags} You are up next. Ready up! Join the team.`]
    }
    if (subcmd == "off" && isAdmin(username)) {
       const takenOff =
@@ -36,7 +36,7 @@ function listBot({ username }, subcmd, ...args) {
          .filter(x => x)
       return ( 
          takenOff.length
-            ? [`@${takenOff.join(" @")} taken off of the list.`]
+            ? [`@${takenOff.join(" @")} taken off from the list.`]
             : [`@${username} Nobody was taken off from the list.`]
       )
    }
